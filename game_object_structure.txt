@@ -1,0 +1,12 @@
+arena
+	linhas
+		celulas
+	colunas
+
+celula
+	estado [visitado, não-visitado]
+	conteúdo [bomba, vazia, tesouro, número]
+
+tesouro
+	valor
+	imagem

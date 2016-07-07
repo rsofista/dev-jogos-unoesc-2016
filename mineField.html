@@ -1,0 +1,22 @@
+
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js" type="text/javascript"></script>
+	<script src="mineFieldCore.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="estilos.css">
+	<meta charset="utf-8">
+</head>
+<body ng-app = "mainApp">
+
+	<div ng-controller="arenaController">
+	    <table border="1">
+	        <tr ng-repeat="linha in arena.linhas">
+	            <td ng-repeat="celula in linha.celulas" ng-click="marcar(celula)">
+	                {{celula.conteudo}}
+	            </td>
+	        </tr>
+	    </table>
+	</div>
+
+</body>
+</html>
