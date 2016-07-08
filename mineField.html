@@ -9,6 +9,10 @@
 <body ng-app = "mainApp">
 
 	<div ng-controller="arenaController">
+		Tempo total: {{tempoTotalDeJogo}} <br>
+		Total tesouros: {{totalTesourosEncontrados}} de {{quantidadeDeTesouros}} <br>
+		Fase: {{level}}
+
 	    <table border="1">
 	        <tr ng-repeat="linha in arena.linhas">
 	            <td ng-repeat="celula in linha.celulas" ng-click="marcar(celula)">
