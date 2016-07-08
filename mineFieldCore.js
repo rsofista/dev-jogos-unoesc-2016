@@ -23,7 +23,6 @@ mainApp.controller('arenaController', function($scope) {
 		if($scope.quantidadeDeTesouros == $scope.totalTesourosEncontrados){
 			levelUp();
 		}
-
 	};
 
 
@@ -32,6 +31,7 @@ mainApp.controller('arenaController', function($scope) {
 
 		geraLinhasECelulas();
 		populaArenaComTesouros();
+		populaValores();
 	}
 
 	function geraLinhasECelulas() {
@@ -44,6 +44,7 @@ mainApp.controller('arenaController', function($scope) {
 			for(var j = 0; j < $scope.qtdCelulas; j++) {
 				var celula = {};
 				celula.marcado = false;
+				celula.valor = 0;
 				$scope.arena.linhas[i].celulas.push(celula);
 
 			}
@@ -55,22 +56,63 @@ mainApp.controller('arenaController', function($scope) {
 
 	function populaArenaComTesouros() {
 
-		var posicoes = randomUniqueArray($scope.quantidadeDeTesouros);
+		var posicoes = randomUniqueArray($scope.quantidadeDeTesouros, 10);
 
 		for (var i = posicoes.length - 1; i >= 0; i--) {
 			var lin = posicoes[i][0];
 			var col = posicoes[i][1];
 
 			$scope.arena.linhas[lin].celulas[col].conteudo = 'X';
+			$scope.arena.linhas[lin].celulas[col].tesouro = true;
 		}
 	}
 
-	function randomUniqueArray(max) {
+	function populaValores() {
+		for (var lin = 0; lin < $scope.qtdLinhas; ++lin) {
+			for (var col = 0; col < $scope.qtdCelulas; ++col) {
+				if ($scope.arena.linhas[lin].celulas[col].tesouro === true) {
+					if (lin < $scope.qtdLinhas-1) {
+						$scope.arena.linhas[lin+1].celulas[col].valor++;
+
+						if (col > 0) {
+							$scope.arena.linhas[lin+1].celulas[col-1].valor++;
+						}
+
+						if (col < $scope.qtdCelulas-1) {
+							$scope.arena.linhas[lin+1].celulas[col+1].valor++;
+						}
+					}
+
+					if (lin > 0) {
+						$scope.arena.linhas[lin-1].celulas[col].valor++;
+
+						if (col > 0) {
+							$scope.arena.linhas[lin-1].celulas[col-1].valor++;
+						}
+
+						if (col < $scope.qtdCelulas-1) {
+							$scope.arena.linhas[lin-1].celulas[col+1].valor++;
+						}
+					}
+
+					if (col > 0) {
+						$scope.arena.linhas[lin].celulas[col-1].valor++;
+					}
+
+					if (col < $scope.qtdCelulas-1) {
+						$scope.arena.linhas[lin].celulas[col+1].valor++;
+					}
+				}
+			}
+		}
+	}
+
+	function randomUniqueArray(qtdElementos, numeroMaximo) {
 		var resultado = [];
 
-		while (resultado.length < max) {
-			var indiceX = parseInt(Math.random() * 1000) % max;
-			var indiceY = parseInt(Math.random() * 1000) % max;
+		while (resultado.length < qtdElementos) {
+			var indiceX = parseInt(Math.random() * 1000) % numeroMaximo;
+			var indiceY = parseInt(Math.random() * 1000) % numeroMaximo;
 			var i = resultado.length - 1;
 
 			for (; i >= 0; i--) {
@@ -106,7 +148,7 @@ mainApp.controller('arenaController', function($scope) {
 			$scope.tempoTotalDeJogo = 400;	
 		}
 
-		$scope.quantidadeDeTesouros -= $scope.level;
+		$scope.quantidadeDeTesouros--;
 	}
 
 	function resetLevel(){
@@ -114,5 +156,4 @@ mainApp.controller('arenaController', function($scope) {
 	}
 
 	createArena();
-
 });

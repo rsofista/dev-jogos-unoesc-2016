@@ -13,13 +13,14 @@
 		Total tesouros: {{totalTesourosEncontrados}} de {{quantidadeDeTesouros}} <br>
 		Fase: {{level}}
 
-	    <table border="1">
-	        <tr ng-repeat="linha in arena.linhas">
-	            <td ng-repeat="celula in linha.celulas" ng-click="marcar(celula)">
-	                {{celula.conteudo}}
-	            </td>
-	        </tr>
-	    </table>
+		<table border="1">
+			<tr ng-repeat="linha in arena.linhas">
+				<td ng-repeat="celula in linha.celulas" ng-click="marcar(celula)">
+					<span ng-if="celula.conteudo === 'X' || celula.conteudo === ':D'">{{celula.conteudo}}</span>
+					<span ng-if="celula.conteudo !== 'X' && celula.conteudo !== ':D' && celula.valor > 0">{{celula.valor}}</span>
+				</td>
+			</tr>
+		</table>
 	</div>
 
 </body>
