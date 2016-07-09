@@ -1,6 +1,23 @@
-td {
-	border: 2px solid blue;
-	width: 50px;
+.arena {
+    line-height:0;
+    border-spacing:0;
+}
+
+.arena td {
+    padding:0;
+    width: 50px;
 	height: 50px;
 	text-align: center;
+}
+
+.celula-vazia {
+	background-color: red;
+}
+
+.celula-tesouro {
+	background-color: blue;
+}
+
+.celula-valor {
+	background-color: green;
 }

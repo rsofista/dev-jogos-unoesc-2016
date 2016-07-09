@@ -9,15 +9,17 @@
 <body ng-app = "mainApp">
 
 	<div ng-controller="arenaController">
+		Total pontos: {{totalDePontos}} <br>
 		Tempo total: {{tempoTotalDeJogo}} <br>
 		Total tesouros: {{totalTesourosEncontrados}} de {{quantidadeDeTesouros}} <br>
-		Fase: {{level}}
+		Fase: {{level}} <br>
+		<input type="button" ng-click="novoJogo()" value="Novo jogo"/>
 
-		<table border="1">
+	    <table border="1" class="arena">
 			<tr ng-repeat="linha in arena.linhas">
-				<td ng-repeat="celula in linha.celulas" ng-click="marcar(celula)">
-					<span ng-if="celula.conteudo === 'X' || celula.conteudo === ':D'">{{celula.conteudo}}</span>
-					<span ng-if="celula.conteudo !== 'X' && celula.conteudo !== ':D' && celula.valor > 0">{{celula.valor}}</span>
+				<td ng-repeat="celula in linha.celulas" ng-click="marcar(celula)"  class="{{celula.classCss}}">
+					<span>{{celula.conteudo}}</span>
+					<span>{{celula.tesouro}}</span>
 				</td>
 			</tr>
 		</table>
@@ -25,3 +27,4 @@
 
 </body>
 </html>
+
